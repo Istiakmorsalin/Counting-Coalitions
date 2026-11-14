@@ -7,8 +7,6 @@
 Md Istiak Morsalin · Prianka Barman
 STAT 8030: Applied, Discrete & Combinatorial Mathematics, Kennesaw State University (Fall 2026)
 
-![Poster](docs/poster_preview.png)
-
 ## Overview
 
 SHAP explains a model's prediction by giving each feature its **Shapley value**:
@@ -36,11 +34,7 @@ This project uses counting arguments to explain **why** the formula works, and t
 | **RQ3** | Why do the values always add up to $v(N)-v(\emptyset)$? | Telescoping along each ordering (also proved by induction). |
 | **RQ4** | How does the cost grow, and how many samples are enough? | Exact cost doubles per feature; see the results below. |
 
-![RQ2: the bijection](docs/rq2_bijection.png)
-
 ## Methodology
-
-![Methodology](docs/methodology.png)
 
 - **Data:** [UCI Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing) (`bank-full`), 16 features;
   a 12,000-row stratified sample; target = did the client subscribe to a term deposit (11.7% yes).
@@ -66,10 +60,6 @@ This project uses counting arguments to explain **why** the formula works, and t
 | KernelSHAP's error advantage (median) | **14×** logistic regression, **2.1×** trees |
 | Lowest Kendall's $\tau$ for any $m \ge 100$ | **0.92** |
 
-![Exact cost](docs/cost.png)
-
-![Accuracy vs budget](docs/accuracy.png)
-
 **Rule of thumb:** the smallest $m$ with ≤ 5% error *and* Kendall's $\tau \ge 0.9$.
 
 | Model | Method | $n=4$ | 8 | 12 | 16 |
@@ -83,8 +73,6 @@ Both estimators are exact when features do not interact, so the budget is driven
 near-additive model needs few samples at any $n$; a tree model needs more as $n$ grows.
 
 ### One real client, explained
-
-![One client explained](docs/client_explained.png)
 
 Exact Shapley values for a client who subscribed and whom the tree model correctly flagged. The bars add up exactly
 from the base rate (0.18) to the prediction (0.79), which is efficiency (RQ3) on real data. The top driver is
@@ -110,7 +98,7 @@ Everything is in [`shapley_values_implementation_final.ipynb`](shapley_values_im
 | 1 | Coalitions as bitmasks; subset and permutation formulas |
 | 2 to 4 | RQ1 to RQ3: exact-arithmetic checks and the $n = 3$ worked example |
 | 5 to 6 | Data, models, the value function, the three estimators, and a cross-check against `shap` |
-| 6.2 | One client explained (the panel above) |
+| 6.2 | One client explained |
 | 7 to 9 | RQ4: exact cost, accuracy against budget, and the rule of thumb with a Hoeffding comparison |
 
 Results use fixed seeds, so accuracy numbers reproduce exactly when the data comes from the same source (OpenML,
@@ -134,5 +122,3 @@ with the UCI archive as a fallback). Runtimes vary slightly from run to run and 
    *AISTATS*, 2021.
 6. S. Moro, P. Cortez and P. Rita. A data-driven approach to predict the success of bank telemarketing.
    *Decision Support Systems* 62, 2014.
-
-The full poster is in [`docs/poster.pdf`](docs/poster.pdf).
