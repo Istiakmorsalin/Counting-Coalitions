@@ -1,0 +1,9 @@
+dataset,model,method,4,6,8,10,12,14,16
+Adult,GBT,KernelSHAP,10.0,10.0,50.0,50.0,50.0,100.0,
+Adult,GBT,Permutation,100.0,500.0,500.0,500.0,500.0,500.0,
+Adult,LogReg,KernelSHAP,10.0,10.0,10.0,10.0,10.0,10.0,
+Adult,LogReg,Permutation,10.0,10.0,50.0,50.0,50.0,50.0,
+Bank,GBT,KernelSHAP,10.0,50.0,50.0,50.0,100.0,100.0,500.0
+Bank,GBT,Permutation,50.0,100.0,100.0,500.0,500.0,500.0,500.0
+Bank,LogReg,KernelSHAP,10.0,10.0,10.0,10.0,10.0,10.0,10.0
+Bank,LogReg,Permutation,10.0,10.0,10.0,50.0,50.0,50.0,50.0
