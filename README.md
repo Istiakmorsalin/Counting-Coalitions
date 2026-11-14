@@ -5,7 +5,8 @@
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Istiakmorsalin/Counting-Coalitions/blob/main/shapley_values_implementation_final.ipynb)
 
 Md Istiak Morsalin · Prianka Barman
-STAT 8030: Applied, Discrete & Combinatorial Mathematics, Kennesaw State University (Fall 2026)
+STAT 8030: Applied, Discrete & Combinatorial Mathematics, Kennesaw State University (Fall 2026)  
+Faculty mentor: [Dr. Mehmet Emin Aktas](https://scholar.google.com/citations?user=t6NsNvoAAAAJ&hl=en)
 
 ## Overview
 
@@ -60,7 +61,7 @@ This project uses counting arguments to explain **why** the formula works, and t
 | KernelSHAP's error advantage (median) | **14×** logistic regression, **2.1×** trees |
 | Lowest Kendall's $\tau$ for any $m \ge 100$ | **0.92** |
 
-**Rule of thumb:** the smallest $m$ with ≤ 5% error *and* Kendall's $\tau \ge 0.9$.
+**Rule of thumb:** the smallest $m$ with ≤ 5% *mean* error and Kendall's $\tau \ge 0.9$.
 
 | Model | Method | $n=4$ | 8 | 12 | 16 |
 |---|---|---:|---:|---:|---:|
@@ -80,6 +81,20 @@ from the base rate (0.18) to the prediction (0.79), which is efficiency (RQ3) on
 explanation exposes it. It inflates AUC but not the estimator comparison, which is measured against exact values for
 the same model.
 
+### Replication on a second dataset (UCI Adult)
+
+The same pipeline, with the same settings, on [UCI Adult](https://archive.ics.uci.edu/dataset/2/adult) (14 features,
+target: income above $50K). Values are given as trees / logistic regression.
+
+| Dataset ($d$) | Exact cost per feature | Break-even for $m = 100$ (predicted 11) | KernelSHAP lower mean error | Lowest Kendall's $\tau$, $m \ge 100$ |
+|---|---|---|---|---|
+| Bank Marketing (16) | ×2.01 / ×2.05 | 10 / 10 | 70/70 | 0.92 |
+| Adult (14) | ×1.97 / ×2.20 | 12 / 10 | 60/60 | 0.89 |
+
+Every finding replicates. On both datasets the break-even for $m = 1000$ is exactly the predicted $n = 14$, and
+errors fall like $1/\sqrt{m}$ (log-log slopes from −0.49 to −0.52). The one exception is a single Adult setting
+(trees, $n = 6$, permutation sampling, $m = 100$) where Kendall's $\tau$ is 0.89, just under 0.9.
+
 ## Running the notebook
 
 Everything is in [`shapley_values_implementation_final.ipynb`](shapley_values_implementation_final.ipynb).
@@ -87,9 +102,9 @@ Everything is in [`shapley_values_implementation_final.ipynb`](shapley_values_im
 1. Open it in Colab with the badge above, or locally with Python 3.10 or newer and
    `pip install numpy pandas scipy scikit-learn matplotlib shap`.
 2. In the configuration cell, set:
-   - `QUICK = True` for a smoke test of a few minutes, or `QUICK = False` for the full study, which takes about an
-     hour on a free Colab CPU.
-   - `USE_DATASETS = ["Bank"]` (the default). The other options are `"Adult"`, `"Pima"`, `"California"`, `"Heart"`
+   - `QUICK = True` for a smoke test of a few minutes, or `QUICK = False` for the full two-dataset study, which takes
+     about 2 hours on a free Colab CPU.
+   - `USE_DATASETS = ["Bank", "Adult"]` (the default). The other options are `"Pima"`, `"California"`, `"Heart"`
      and `"Synthetic16"`.
 3. Run all cells. CSVs and figures are written to `results/` and zipped as `shapley_results.zip`.
 
@@ -106,7 +121,6 @@ with the UCI archive as a fallback). Runtimes vary slightly from run to run and 
 
 ## Limitations
 
-- One dataset, including the leaking `duration` feature.
 - Features are treated as independent when they are removed (the interventional value function).
 - 50 background rows, and 5 instances × 3 seeds per setting.
 
