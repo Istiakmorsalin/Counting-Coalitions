@@ -54,8 +54,8 @@ This project uses counting arguments to explain **why** the formula works, and t
 | Finding | Value |
 |---|---|
 | Exact runtime per added feature | **≈ 2×** (matches $2^n$) |
-| One exact explanation at $n = 16$ (trees) | **≈ 50 s**: 65,536 coalitions, 3.3 M predictions |
-| Predicted break-even for $m = 100$, from $m(n+1) < 2^n$ | **$n = 11$** (measured: 12, on the even-$n$ grid) |
+| One exact explanation at $n = 16$ (trees) | **≈ 67 s**: 65,536 coalitions, 3.3 M predictions |
+| Predicted break-even for $m = 100$, from $m(n+1) < 2^n$ | **$n = 11$** (measured: 10, on the even-$n$ grid) |
 | Settings where KernelSHAP has lower mean error than permutation sampling | **70 / 70** |
 | KernelSHAP's error advantage (median) | **14×** logistic regression, **2.1×** trees |
 | Lowest Kendall's $\tau$ for any $m \ge 100$ | **0.92** |
